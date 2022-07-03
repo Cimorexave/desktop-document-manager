@@ -8,10 +8,16 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <h1>Hey!</h1>
-    Using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+    <h1>PDF Manager</h1>
+    <div class="container">
+      <div class="preview">
+        <button class="selectFile">Select File</button>
+      </div>
+      <button class="convertBtn">Convert</button>
+      <div class="resultText">
+        <textarea name="textarea" id="textarea" cols="30" rows="10"></textarea>
+      </div>
+    </div>
     <script src="./renderer.js"></script>
   </body>
 </html>
