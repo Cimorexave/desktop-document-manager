@@ -1,15 +1,24 @@
 //rendering file to add functionlaity to the application e.g. front-end
-const electron = require('electron');
+//const electron = require('electron');
 const path = require('path');
 const {ipcRenderer} = require('electron')
 const pdf = require('pdf-parse')
-const fs = require('fs')
+const fs = require('fs');
 
 // Importing dialog module using remote
 //const dialog = electron.remote.dialog;
-
 var uploadFile = document.getElementById('upload');
-var textarea = document.getElementById('textarea')
+var textarea = document.getElementById('textarea');
+//var convertBtn = document.getElementsByClassName('convertBtn');
+
+//converting the file 
+const convertFunction = (dataBuffer) => {
+	pdf(dataBuffer).then((data)=> {
+		console.log(data.text)
+	}).catch((err)=>{
+		console.error(err)
+	})
+}
 
 //upon clicking upload file, request the file from the main process
 uploadFile.addEventListener('click', () => {
@@ -17,14 +26,17 @@ uploadFile.addEventListener('click', () => {
   });
   
   //upon receiving a file, process accordingly
+  ipcRenderer.on('text', (event, text) => {
+	console.log('recieved data from the main process:', text)
+	textarea.innerHTML = text;
+  })
+  /*
   ipcRenderer.on('file', (event, file) => {
 	console.log('obtained file from main process: ' + file);
-	let dataBuffer = fs.readFileSync(file)
-	pdf(dataBuffer).then((data)=>{
-		console.log(data)
-		textarea.innerText = data.text
-	})
+
   });
+*/
+
 
 /*
 // Defining a Global file path Variable to store

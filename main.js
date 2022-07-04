@@ -1,5 +1,7 @@
 const { app, BrowserWindow, dialog, ipcMain } = require('electron')
 const path = require('path');
+const fs = require('fs')
+const pdf = require('pdf-parse')
 
 function createWindow () {
 // Create the browser window.
@@ -53,7 +55,7 @@ ipcMain.on('file-request', (event) => {
 	  // Resolves to a Promise<Object>
 	  dialog.showOpenDialog({
 		title: 'Select the File to be uploaded',
-		defaultPath: path.join(__dirname, '../assets/'),
+		defaultPath: path.join(__dirname),
 		buttonLabel: 'Upload',
 		// Restricting the user to only PDF Files.
 		filters: [ 
@@ -69,7 +71,15 @@ ipcMain.on('file-request', (event) => {
 		if (!file.canceled) {
 		  const filepath = file.filePaths[0].toString();
 		  console.log(filepath);
-		  event.reply('file', filepath);
+
+			let dataBuffer = fs.readFileSync(filepath)
+			pdf(dataBuffer).then((data) => {
+				console.log(data.text)
+				event.reply('text', data.text)
+			})
+			
+		  
+		  //event.reply('file', filepath);
 		}  
 	  }).catch(err => {
 		console.log(err)
@@ -79,7 +89,7 @@ ipcMain.on('file-request', (event) => {
 	  // If the platform is 'darwin' (macOS)
 	  dialog.showOpenDialog({
 		title: 'Select the File to be uploaded',
-		defaultPath: path.join(__dirname, '../assets/'),
+		defaultPath: path.join(__dirname),
 		buttonLabel: 'Upload',
 		filters: [ 
 		{ 
