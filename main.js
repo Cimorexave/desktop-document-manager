@@ -1,33 +1,105 @@
-// running script
-console.log("app initalized...")
+const { app, BrowserWindow, dialog, ipcMain } = require('electron')
+const path = require('path');
 
-//importing modules
+function createWindow () {
+// Create the browser window.
+const win = new BrowserWindow({
+	width: 800,
+	height: 600,
+	webPreferences: {
+		enableRemoteModule: true,
+		nodeIntegration: true,
+		contextIsolation: false
+	}
+})
 
-//electron modules to create a windoe and initialize the application
-const { app, BrowserWindow } = require('electron')
-//using path module to load the preload.js file
-const path = require('path')
+// Load the index.html of the app.
+win.loadFile('./index.html')
 
-// creating the application window and it's base properties
-const createWindow = () => {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true,
-    }
-  })
-  // reading the web dom for the window
-  win.loadFile('index.html')
+// Open the DevTools.
+win.webContents.openDevTools()
 }
-// telling the app to creat the app window only when the app ready promise is fulfilled
- app.whenReady().then(() => {
-    createWindow()
-  })
-//closing the app on exit 
-  app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') app.quit()
-  })
 
-  
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+// Some APIs can only be used after this event occurs.
+// This method is equivalent to 'app.on('ready', function())'
+app.whenReady().then(createWindow)
+
+// Quit when all windows are closed.
+app.on('window-all-closed', () => {
+// On macOS it is common for applications and their menu bar
+// To stay active until the user quits explicitly with Cmd + Q
+if (process.platform !== 'darwin') {
+	app.quit()
+}
+})
+
+app.on('activate', () => {
+// On macOS it's common to re-create a window in the
+// app when the dock icon is clicked and there are no
+// other windows open.
+if (BrowserWindow.getAllWindows().length === 0) {
+	createWindow()
+}
+})
+
+// Syncing renderer process form creating the dialog
+
+
+ipcMain.on('file-request', (event) => {  
+	// If the platform is 'win32' or 'Linux'
+	if (process.platform !== 'darwin') {
+	  // Resolves to a Promise<Object>
+	  dialog.showOpenDialog({
+		title: 'Select the File to be uploaded',
+		defaultPath: path.join(__dirname, '../assets/'),
+		buttonLabel: 'Upload',
+		// Restricting the user to only Text Files.
+		filters: [ 
+		{ 
+		   name: 'Text Files', 
+		   extensions: ['txt', 'docx'] 
+		}, ],
+		// Specifying the File Selector Property
+		properties: ['openFile']
+	  }).then(file => {
+		// Stating whether dialog operation was
+		// cancelled or not.
+		console.log(file.canceled);
+		if (!file.canceled) {
+		  const filepath = file.filePaths[0].toString();
+		  console.log(filepath);
+		  event.reply('file', filepath);
+		}  
+	  }).catch(err => {
+		console.log(err)
+	  });
+	}
+	else {
+	  // If the platform is 'darwin' (macOS)
+	  dialog.showOpenDialog({
+		title: 'Select the File to be uploaded',
+		defaultPath: path.join(__dirname, '../assets/'),
+		buttonLabel: 'Upload',
+		filters: [ 
+		{ 
+		   name: 'Text Files', 
+		   extensions: ['txt', 'docx'] 
+		}, ],
+		// Specifying the File Selector and Directory 
+		// Selector Property In macOS
+		properties: ['openFile', 'openDirectory']
+	  }).then(file => {
+		console.log(file.canceled);
+		if (!file.canceled) {
+		const filepath = file.filePaths[0].toString();
+		console.log(filepath);
+		event.send('file', filepath);
+	  }  
+	}).catch(err => {
+		console.log(err)
+	  });
+	}
+  });
+
