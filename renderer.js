@@ -3,11 +3,11 @@ const {ipcRenderer} = require('electron')
 
 // Importing dialog module using remote
 //const dialog = electron.remote.dialog;
-var uploadFile = document.getElementById('upload');
-var textarea = document.getElementById('textarea');
-var filepathDOM = document.getElementById('filepath');
-var numbOfPages = document.getElementById('numbofpages')
-var metaData = document.getElementById('metadata')
+const uploadFile = document.getElementById('upload');
+const textarea = document.getElementById('textarea');
+const filepathDOM = document.getElementById('filepath');
+const numbOfPages = document.getElementById('numbofpages')
+const metaData = document.getElementById('metadata')
 const preview = document.getElementById('preview')
 //var convertBtn = document.getElementsByClassName('convertBtn');
 const state = {
