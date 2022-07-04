@@ -74,6 +74,7 @@ ipcMain.on('file-request', (event) => {
 		  event.reply('filepath', filepath)
 
 			let dataBuffer = fs.readFileSync(filepath)
+			event.reply('dataBuffer', dataBuffer)
 			pdf(dataBuffer).then((data) => {
 				console.log(data.text)
 				event.reply('text', data.text)

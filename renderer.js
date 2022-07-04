@@ -1,6 +1,5 @@
 //rendering file to add functionlaity to the application e.g. front-end
 const {ipcRenderer} = require('electron')
-const pdf = require('pdf-parse')
 
 // Importing dialog module using remote
 //const dialog = electron.remote.dialog;
@@ -8,10 +7,14 @@ var uploadFile = document.getElementById('upload');
 var textarea = document.getElementById('textarea');
 var filepathDOM = document.getElementById('filepath');
 var numbOfPages = document.getElementById('numbofpages')
+var metaData = document.getElementById('metadata')
+const preview = document.getElementById('preview')
 //var convertBtn = document.getElementsByClassName('convertBtn');
 const state = {
   fileIsUploaded: false
 }
+if (!state.fileIsUploaded) metaData.style.display = 'none'
+preview.style.display = 'none'
 
 //upon clicking upload file, request the file from the main process
 uploadFile.addEventListener('click', () => {
@@ -21,18 +24,35 @@ uploadFile.addEventListener('click', () => {
   //upon receiving a file, process accordingly
   ipcRenderer.on('text', (event, text) => {
     state.fileIsUploaded = true;
+    metaData.style.display = 'block'
 	//console.log('recieved data from the main process:', text)
 	textarea.innerHTML = text;
   })
 
   ipcRenderer.on('data', (event, data) => {
     state.fileIsUploaded = true;
+    metaData.style.display = 'block'
     console.log('recieved data from the main process:', data)
     numbOfPages.innerText = data.numpages;
   })
 
   ipcRenderer.on('filepath', (event, filepath) => {
     state.fileIsUploaded = true;
+    metaData.style.display = 'block'
     console.log('recieved data from the main process:', filepath)
+    console.log(filepath.length)
     filepathDOM.innerText = filepath;
+
+    //putting the pdf file into preview
+    preview.style.display = 'block';
+    preview.style.width = '500px';
+    preview.style.height = '690px';
+    preview.src = filepath;
+
+  })
+
+  ipcRenderer.on('dataBuffer', (event, dataBuffer) => {
+    state.fileIsUploaded = true;
+    metaData.style.display = 'block'
+    console.log('recieved data from the main process:', dataBuffer)
   })
