@@ -55,11 +55,11 @@ ipcMain.on('file-request', (event) => {
 		title: 'Select the File to be uploaded',
 		defaultPath: path.join(__dirname, '../assets/'),
 		buttonLabel: 'Upload',
-		// Restricting the user to only Text Files.
+		// Restricting the user to only PDF Files.
 		filters: [ 
 		{ 
-		   name: 'Text Files', 
-		   extensions: ['txt', 'docx'] 
+		   name: 'PDF Files', 
+		   extensions: ['.pdf'] 
 		}, ],
 		// Specifying the File Selector Property
 		properties: ['openFile']
@@ -84,8 +84,8 @@ ipcMain.on('file-request', (event) => {
 		buttonLabel: 'Upload',
 		filters: [ 
 		{ 
-		   name: 'Text Files', 
-		   extensions: ['txt', 'docx'] 
+		   name: 'PDF Files', 
+		   extensions: ['.pdf'] 
 		}, ],
 		// Specifying the File Selector and Directory 
 		// Selector Property In macOS
