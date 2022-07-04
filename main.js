@@ -71,11 +71,13 @@ ipcMain.on('file-request', (event) => {
 		if (!file.canceled) {
 		  const filepath = file.filePaths[0].toString();
 		  console.log(filepath);
+		  event.reply('filepath', filepath)
 
 			let dataBuffer = fs.readFileSync(filepath)
 			pdf(dataBuffer).then((data) => {
 				console.log(data.text)
 				event.reply('text', data.text)
+				event.reply('data', data)
 			})
 		  //event.reply('file', filepath);
 		}  

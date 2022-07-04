@@ -6,3 +6,25 @@ body {
     background-color: darkslategray;
     color: bisque;
 }
+.container {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    align-items: center;
+}
+#upload {
+    font-weight: bold;
+    font-size: 0.8em;
+    padding: 0.8em;
+    border-radius: 15px;
+    border: none;
+    background: bisque;
+    box-shadow: 2px 2px 3px;
+}
+#textarea {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+p {
+    font-size: smaller;
+}

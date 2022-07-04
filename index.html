@@ -11,11 +11,16 @@
     <h1>PDF Manager</h1>
     <div class="container">
       <div class="preview">
-        <button id="upload">Upload File</button>
+        <!--
+          <p id="metadata" style="display: hidden;">
+          Your file path: <p id="filepath"></p>
+          Number of pages: <p id="numbofpages"></p>
+        </p>
+        -->
+        <button id="upload">Upload File & Convert</button>
       </div>
-      <button class="convertBtn" onclick="convertFunction" >Convert</button>
       <div class="resultText">
-        <textarea name="textarea" id="textarea" cols="30" rows="10"></textarea>
+        <textarea name="textarea" id="textarea" cols="45" rows="15"></textarea>
       </div>
     </div>
     <script src="./renderer.js"></script>
