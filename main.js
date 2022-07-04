@@ -77,8 +77,6 @@ ipcMain.on('file-request', (event) => {
 				console.log(data.text)
 				event.reply('text', data.text)
 			})
-			
-		  
 		  //event.reply('file', filepath);
 		}  
 	  }).catch(err => {
@@ -103,7 +101,12 @@ ipcMain.on('file-request', (event) => {
 		if (!file.canceled) {
 		const filepath = file.filePaths[0].toString();
 		console.log(filepath);
-		event.send('file', filepath);
+		let dataBuffer = fs.readFileSync(filepath)
+			pdf(dataBuffer).then((data) => {
+				console.log(data.text)
+				event.send('text', data.text)
+			})
+		//event.send('file', filepath);
 	  }  
 	}).catch(err => {
 		console.log(err)
