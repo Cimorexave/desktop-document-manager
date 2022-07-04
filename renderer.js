@@ -9,6 +9,7 @@ const filepathDOM = document.getElementById('filepath');
 const numbOfPages = document.getElementById('numbofpages')
 const metaData = document.getElementById('metadata')
 const preview = document.getElementById('preview')
+const clearBtn = document.getElementById('clear')
 //var convertBtn = document.getElementsByClassName('convertBtn');
 const state = {
   fileIsUploaded: false
@@ -16,6 +17,13 @@ const state = {
 if (!state.fileIsUploaded) metaData.style.display = 'none'
 preview.style.display = 'none'
 
+//by clicking the clear button the file will be removed
+clearBtn.addEventListener('click', () => {
+  preview.style.display = 'none';
+  textarea.innerHTML = '';
+  state.fileIsUploaded = false;
+  metaData.style.display = 'none';
+})
 //upon clicking upload file, request the file from the main process
 uploadFile.addEventListener('click', () => {
 	ipcRenderer.send('file-request');
