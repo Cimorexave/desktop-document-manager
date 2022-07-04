@@ -20,5 +20,8 @@
   "homepage": "https://github.com/Cimorexave/desktop-document-manager#readme",
   "devDependencies": {
     "electron": "^19.0.4"
+  },
+  "dependencies": {
+    "pdf-parse": "^1.1.1"
   }
 }

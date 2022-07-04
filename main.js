@@ -58,8 +58,7 @@ ipcMain.on('file-request', (event) => {
 		// Restricting the user to only PDF Files.
 		filters: [ 
 		{ 
-		   name: 'PDF Files', 
-		   extensions: ['.pdf'] 
+		   name: 'PDF Files'
 		}, ],
 		// Specifying the File Selector Property
 		properties: ['openFile']
@@ -84,8 +83,7 @@ ipcMain.on('file-request', (event) => {
 		buttonLabel: 'Upload',
 		filters: [ 
 		{ 
-		   name: 'PDF Files', 
-		   extensions: ['.pdf'] 
+		   name: 'PDF Files'
 		}, ],
 		// Specifying the File Selector and Directory 
 		// Selector Property In macOS

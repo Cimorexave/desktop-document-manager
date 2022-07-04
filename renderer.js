@@ -2,11 +2,14 @@
 const electron = require('electron');
 const path = require('path');
 const {ipcRenderer} = require('electron')
+const pdf = require('pdf-parse')
+const fs = require('fs')
 
 // Importing dialog module using remote
 //const dialog = electron.remote.dialog;
 
 var uploadFile = document.getElementById('upload');
+var textarea = document.getElementById('textarea')
 
 //upon clicking upload file, request the file from the main process
 uploadFile.addEventListener('click', () => {
@@ -16,6 +19,11 @@ uploadFile.addEventListener('click', () => {
   //upon receiving a file, process accordingly
   ipcRenderer.on('file', (event, file) => {
 	console.log('obtained file from main process: ' + file);
+	let dataBuffer = fs.readFileSync(file)
+	pdf(dataBuffer).then((data)=>{
+		console.log(data)
+		textarea.innerText = data.text
+	})
   });
 
 /*
