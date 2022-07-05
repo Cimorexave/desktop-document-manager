@@ -46,9 +46,55 @@ if (BrowserWindow.getAllWindows().length === 0) {
 }
 })
 
+
+//Syncing renderer pricess from creating the dialog
+ipcMain.on('path-request', (event) => {
+	// If the platform is 'win32' or 'Linux'
+	if (process.platform !== 'darwin') {
+		// Resolves to a Promise<Object>
+		dialog.showOpenDialog({
+		  title: 'Select the path to be saved',
+		  defaultPath: path.join(__dirname),
+		  buttonLabel: 'Save As',
+		  
+		  // Specifying the File Selector Property
+		  properties: ['opendDirectory']
+		}).then(file => {
+		  // Stating whether dialog operation was
+		  // cancelled or not.
+		  console.log(file.canceled);
+		  if (!file.canceled) {
+			const savePath = file.filePaths[0].toString();
+			console.log(savePath);
+		}  
+	}).catch(err => {
+	  console.log(err)
+	});
+  }else {
+	// If the platform is 'darwin' (macOS)
+	dialog.showOpenDialog({
+	  title: 'Select the Path to be saved',
+	  defaultPath: path.join(__dirname),
+	  buttonLabel: 'Save As',
+	  
+	  // Selector Property In macOS
+	  properties: ['openDirectory']
+	}).then(file => {
+	  console.log(file.canceled);
+	  if (!file.canceled) {
+	  const savePath = file.filePaths[0].toString();
+	  console.log(savePath);
+	  
+	}  
+  }).catch(err => {
+	  console.log(err)
+	});
+  }
+});
+
+
+
 // Syncing renderer process form creating the dialog
-
-
 ipcMain.on('file-request', (event) => {  
 	// If the platform is 'win32' or 'Linux'
 	if (process.platform !== 'darwin') {
