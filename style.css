@@ -1,3 +1,4 @@
+
 body {
     display: flex;
     justify-content: center;
@@ -14,8 +15,7 @@ h1 {
     gap: 0.5em;
 }
 #icon {
-    color: #49BCF5;
-    animation: iconRotation 5000ms infinite forwards;
+    animation: iconRotation 6000ms infinite forwards;
 }
 .container {
     display: flex;
