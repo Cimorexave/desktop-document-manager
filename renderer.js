@@ -10,7 +10,6 @@ const numbOfPages = document.getElementById('numbofpages')
 const metaData = document.getElementById('metadata')
 const preview = document.getElementById('preview')
 const clearBtn = document.getElementById('clear')
-const saveBtn = document.getElementById('saveAs')
 //var convertBtn = document.getElementsByClassName('convertBtn');
 const state = {
   fileIsUploaded: false
@@ -31,12 +30,6 @@ clearBtn.addEventListener('click', () => {
 uploadFile.addEventListener('click', () => {
 	ipcRenderer.send('file-request');
   });
-
-  //upon clicking save button request the path from the main process
-  saveBtn.addEventListener('click', () => {
-    ipcRenderer.send('path-request')
-  })
-
   
   
   //upon receiving a file, process accordingly
