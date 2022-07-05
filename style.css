@@ -3,8 +3,19 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: darkslategray;
+    background-color: #073045;
     color: bisque;
+}
+h1 {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+}
+#icon {
+    color: #49BCF5;
+    animation: iconRotation 5000ms infinite forwards;
 }
 .container {
     display: flex;
@@ -26,6 +37,7 @@ body {
     font-size: 1.1rem;
     font-weight: bold;
     margin-bottom: 3rem;
+    padding: 10px;
 }
 p {
     text-align: center;
@@ -65,6 +77,14 @@ p {
     opacity: 0.7;
     cursor: pointer;
 }
+
+@keyframes iconRotation {
+    0 {} 
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 @media only screen and (min-width: 1000px) {
     .resultText {
         flex-direction: row;
