@@ -23,6 +23,8 @@ clearBtn.addEventListener('click', () => {
   textarea.innerHTML = '';
   state.fileIsUploaded = false;
   metaData.style.display = 'none';
+  textarea.style.width = '500px';
+  textarea.style.height = '300px';
 })
 //upon clicking upload file, request the file from the main process
 uploadFile.addEventListener('click', () => {
