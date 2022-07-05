@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Document Manager</title>
+    <title>PDF Manager</title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
@@ -17,13 +17,14 @@
           Number of pages: <p id="numbofpages"></p>
           </div>
         <div class="buttons">
-          <button id="upload">Upload File & Convert</button>
-          <button id="clear">Clear file</button>
+          <button class="btn" id="upload">Upload File & Convert</button>
+          <button class="btn" id="clear">Clear file</button>
         </div>
         
       </div>
-      <embed src=""  id="preview" />
+      
       <div class="resultText">
+        <embed src=""  id="preview" />
         <textarea placeholder="No file yet.... Click the button above and upload your pdf file to be converted" name="textarea" id="textarea" cols="45" rows="15"></textarea>
       </div>
     </div>
