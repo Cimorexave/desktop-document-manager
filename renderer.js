@@ -10,6 +10,8 @@ const numbOfPages = document.getElementById('numbofpages')
 const metaData = document.getElementById('metadata')
 const preview = document.getElementById('preview')
 const clearBtn = document.getElementById('clear')
+const saveBtn = document.getElementById('save')
+
 //var convertBtn = document.getElementsByClassName('convertBtn');
 const state = {
   fileIsUploaded: false
@@ -66,4 +68,10 @@ uploadFile.addEventListener('click', () => {
     state.fileIsUploaded = true;
     metaData.style.display = 'block'
     console.log('recieved data from the main process:', dataBuffer)
+  })
+
+  //listening on a click for saving button
+  saveBtn.addEventListener('click', () => {
+    //sending an event and the converted text on the textarea-text channel
+    ipcRenderer.send('textarea-text', textarea.innerHTML)
   })

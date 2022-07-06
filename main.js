@@ -115,3 +115,29 @@ ipcMain.on('file-request', (event) => {
 	}
   });
 
+  // listening on the textarea-text channel for an event from renderer when 
+  // the save as button is clicked
+  ipcMain.on('textarea-text', (event, args) => {
+		//creating a dialog to choose the path to save as
+		dialog.showOpenDialog({
+			title: 'Select the path to be saved',
+			defaultPath: path.join(__dirname),
+			buttonLabel: 'Select Direcetory',
+			// Specifying the File Selector Property
+			properties: ['openDirectory']
+		}).then( file => { //promise resolved 
+			//continue if choosing directory wasn't cancelled
+			if (!file.canceled) {
+				//the selected path
+				const savePath = file.filePaths[0].toString()
+				//writing the content of textarea into a new file
+				//catching error / writing the file
+				try {
+					fs.writeFileSync(path.join(savePath, '/test.txt'), args)
+				} catch(err) {
+					console.error(err)
+				}
+				
+			}
+		})
+  })
