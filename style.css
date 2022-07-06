@@ -67,6 +67,9 @@ p {
     box-shadow: 2px 2px 3px;
     align-self: center;
 }
+#save {
+    display: none;
+}
 
 @keyframes iconRotation {
     0 {} 

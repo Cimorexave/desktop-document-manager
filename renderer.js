@@ -23,6 +23,7 @@ preview.style.display = 'none'
 clearBtn.addEventListener('click', () => {
   preview.style.display = 'none';
   textarea.innerHTML = '';
+  saveBtn.style.display = 'none';
   state.fileIsUploaded = false;
   metaData.style.display = 'none';
   textarea.style.width = '500px';
@@ -39,7 +40,8 @@ uploadFile.addEventListener('click', () => {
     state.fileIsUploaded = true;
     metaData.style.display = 'block'
 	//console.log('recieved data from the main process:', text)
-	textarea.innerHTML = text;
+	  textarea.innerHTML = text;
+    saveBtn.style.display = 'block'
   })
 
   ipcRenderer.on('data', (event, data) => {
