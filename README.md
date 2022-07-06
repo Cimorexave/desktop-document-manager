@@ -5,6 +5,11 @@ There is also a preview of your uploaded file. Click the clear button to unload 
 
 Technologies and keywords in this project: `Electron` , `Inter Process Communication (ICP) ` , `node-modules` , `DOM manipulation` , `pdf-parse`.
 
+## Install
+
+You can simply download the finished app at : `https://drive.google.com/file/d/1wKYoKgz8YM4TPqYTbDs1m8XnmPDK3t8B/view?usp=sharing` <br>
+Extract the file and open the directory, click the icon and it's done!
+
 ## Test
 
 This project will soon go through procudtion once more features are added and the finall production file will be uploaded here.
