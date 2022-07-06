@@ -11,7 +11,7 @@ This project will soon go through procudtion once more features are added and th
 Untill then you can use and see the app by following these steps: <br>
 
 1 - download the files of this project to your local machine. (This application is compatible with Mac, Windows & Linux OS. <br>
-2 - cd command line in the root directory of the project and run: 'npm i'. All the dependencies and modules will be installed automatically. <br>
+2 - cd command line in the root directory of the project and run: 'npm i'. All the dependencies and modules will be installed automatically. (Make sure you have node installed on your system. If not, just google node and download it quickly. <br>
 3 - Afterwards also in command line run: 'npm start'. <br>
 4 - Enjoy! <br>
 
