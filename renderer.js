@@ -18,6 +18,7 @@ const state = {
 }
 if (!state.fileIsUploaded) metaData.style.display = 'none'
 preview.style.display = 'none'
+clearBtn.style.display = 'none'
 
 //by clicking the clear button the file will be removed
 clearBtn.addEventListener('click', () => {
@@ -28,6 +29,8 @@ clearBtn.addEventListener('click', () => {
   metaData.style.display = 'none';
   textarea.style.width = '500px';
   textarea.style.height = '300px';
+
+  clearBtn.style.display = 'none';
 })
 //upon clicking upload file, request the file from the main process
 uploadFile.addEventListener('click', () => {
@@ -42,11 +45,13 @@ uploadFile.addEventListener('click', () => {
 	//console.log('recieved data from the main process:', text)
 	  textarea.innerHTML = text;
     saveBtn.style.display = 'block'
+    clearBtn.style.display = 'block'
   })
 
   ipcRenderer.on('data', (event, data) => {
     state.fileIsUploaded = true;
     metaData.style.display = 'block'
+    clearBtn.style.display = 'block'
     console.log('recieved data from the main process:', data)
     numbOfPages.innerText = data.numpages;
   })
@@ -54,6 +59,7 @@ uploadFile.addEventListener('click', () => {
   ipcRenderer.on('filepath', (event, filepath) => {
     state.fileIsUploaded = true;
     metaData.style.display = 'block'
+    clearBtn.style.display = 'block'
     console.log('recieved data from the main process:', filepath)
     console.log(filepath.length)
     filepathDOM.innerText = filepath;
@@ -68,6 +74,7 @@ uploadFile.addEventListener('click', () => {
 
   ipcRenderer.on('dataBuffer', (event, dataBuffer) => {
     state.fileIsUploaded = true;
+    clearBtn.style.display = 'block'
     metaData.style.display = 'block'
     console.log('recieved data from the main process:', dataBuffer)
   })
