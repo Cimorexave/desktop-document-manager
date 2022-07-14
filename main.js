@@ -47,11 +47,13 @@ if (BrowserWindow.getAllWindows().length === 0) {
 })
 
 // Syncing renderer process form creating the dialog
+// Listening the file request channel for a signal and performing the callback function inside it
 ipcMain.on('file-request', (event) => {  
 	// If the platform is 'win32' or 'Linux'
 	if (process.platform !== 'darwin') {
-	  // Resolves to a Promise<Object>
+	  // Resolves to a Promise and opens the dailog where you choose your path
 	  dialog.showOpenDialog({
+		  //the dailog properties
 		title: 'Select the File to be uploaded',
 		defaultPath: path.join(__dirname),
 		buttonLabel: 'Upload',
@@ -66,24 +68,30 @@ ipcMain.on('file-request', (event) => {
 		// Stating whether dialog operation was
 		// cancelled or not.
 		console.log(file.canceled);
+		  // if file selection wasn't cancelled; continue:
 		if (!file.canceled) {
+			// saving the path of the file choosen by user
 		  const filepath = file.filePaths[0].toString();
 		  console.log(filepath);
+			//sending back the file path to the renderer on 'filepath' channel
 		  event.reply('filepath', filepath)
-
+			// Using file system module to read the file
 			let dataBuffer = fs.readFileSync(filepath)
+			//sending the read file to the renderer on dataBuffer channel
 			event.reply('dataBuffer', dataBuffer)
+			// Converting the read file to pdf
 			pdf(dataBuffer).then((data) => {
 				console.log(data.text)
+				//Sending bakc the converted file and it's info to user on renderer
 				event.reply('text', data.text)
 				event.reply('data', data)
 			})
 		  //event.reply('file', filepath);
 		}  
-	  }).catch(err => {
+	  }).catch(err => { //cathcing to see if any errors happened in the process
 		console.log(err)
 	  });
-	}
+	} // Doing the same thing for MacOS
 	else {
 	  // If the platform is 'darwin' (macOS)
 	  dialog.showOpenDialog({
@@ -119,11 +127,12 @@ ipcMain.on('file-request', (event) => {
   // the save as button is clicked
   ipcMain.on('textarea-text', (event, args) => {
 		//creating a dialog to choose the path to save as
-		dialog.showOpenDialog({
+		dialog.showOpenDialog({ // Dialog properties
 			title: 'Select the path to be saved',
 			defaultPath: path.join(__dirname),
 			buttonLabel: 'Select Direcetory',
 			// Specifying the File Selector Property
+			// Choosing the directory not a file with this property
 			properties: ['openDirectory']
 		}).then( file => { //promise resolved 
 			//continue if choosing directory wasn't cancelled
