@@ -1,8 +1,8 @@
-//rendering file to add functionlaity to the application e.g. front-end
+ //rendering file to add functionlaity to the application e.g. front-end user interface
+ //importing the ipc for the renderer
 const {ipcRenderer} = require('electron')
 
-// Importing dialog module using remote
-//const dialog = electron.remote.dialog;
+// selecting the elements from DOM interface index.html
 const uploadFile = document.getElementById('upload');
 const textarea = document.getElementById('textarea');
 const filepathDOM = document.getElementById('filepath');
@@ -12,7 +12,8 @@ const preview = document.getElementById('preview')
 const clearBtn = document.getElementById('clear')
 const saveBtn = document.getElementById('save')
 
-//var convertBtn = document.getElementsByClassName('convertBtn');
+// This state object doesn't play a role in the programm but was made for tracking the development process to be made easier 
+// you can ignore it every time you see it in the code!
 const state = {
   fileIsUploaded: false
 }
@@ -22,6 +23,9 @@ clearBtn.style.display = 'none'
 
 //by clicking the clear button the file will be removed
 clearBtn.addEventListener('click', () => {
+  //removing elements that aren't needed from displaying on the interface
+  //emptying the result textarea
+  //tuning the textarea size to it's initial smaller size
   preview.style.display = 'none';
   textarea.innerHTML = '';
   saveBtn.style.display = 'none';
@@ -29,11 +33,13 @@ clearBtn.addEventListener('click', () => {
   metaData.style.display = 'none';
   textarea.style.width = '500px';
   textarea.style.height = '300px';
-
   clearBtn.style.display = 'none';
 })
 //upon clicking upload file, request the file from the main process
 uploadFile.addEventListener('click', () => {
+  //sending a signal to the main process when the upload button is clicked
+  //this signal is sent on the channel 'file-request' without any files.
+  //Just a sign which tells the main process to start doing it's thing.
 	ipcRenderer.send('file-request');
   });
   
