@@ -53,33 +53,37 @@ uploadFile.addEventListener('click', () => {
     saveBtn.style.display = 'block'
     clearBtn.style.display = 'block'
   })
-
+// Listening on the 'data' channel form the main process and resolving the callback function inside
   ipcRenderer.on('data', (event, data) => {
     state.fileIsUploaded = true;
+	  // Showing file data on DOM and displaying other elements
     metaData.style.display = 'block'
     clearBtn.style.display = 'block'
     console.log('recieved data from the main process:', data)
     numbOfPages.innerText = data.numpages;
   })
-
+// Listening on the 'filepath' channel for the file path choosen by the user and sent from main.js
   ipcRenderer.on('filepath', (event, filepath) => {
     state.fileIsUploaded = true;
+	  // Showing file data on DOM and displaying other elements
     metaData.style.display = 'block'
     clearBtn.style.display = 'block'
     console.log('recieved data from the main process:', filepath)
     console.log(filepath.length)
+	  //Displaying file path on the interface
     filepathDOM.innerText = filepath;
 
-    //putting the pdf file into preview
+    // Displaying the pdf file in the preview
     preview.style.display = 'block';
     preview.style.width = '500px';
     preview.style.height = '690px';
     preview.src = filepath;
 
   })
-
+// Listening on dataBuffer channel 
   ipcRenderer.on('dataBuffer', (event, dataBuffer) => {
     state.fileIsUploaded = true;
+	  // Displaying assets accordingly 
     clearBtn.style.display = 'block'
     metaData.style.display = 'block'
     console.log('recieved data from the main process:', dataBuffer)
@@ -87,6 +91,6 @@ uploadFile.addEventListener('click', () => {
 
   //listening on a click for saving button
   saveBtn.addEventListener('click', () => {
-    //sending an event and the converted text on the textarea-text channel
+    //sending a request to main.js and the converted text from the text are on the textarea-text channel to save it as a file
     ipcRenderer.send('textarea-text', textarea.innerHTML)
   })
