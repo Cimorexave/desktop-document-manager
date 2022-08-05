@@ -18,9 +18,9 @@
     "url": "https://github.com/Cimorexave/desktop-document-manager/issues"
   },
   "homepage": "https://github.com/Cimorexave/desktop-document-manager#readme",
-  
   "dependencies": {
+    "electron": "^19.0.4",
     "pdf-parse": "^1.1.1",
-    "electron": "^19.0.4"
+    "tabula-js": "^1.0.1"
   }
 }
