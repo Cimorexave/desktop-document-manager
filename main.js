@@ -2,7 +2,7 @@ const { app, BrowserWindow, dialog, ipcMain } = require('electron')
 const path = require('path');
 const fs = require('fs')
 const pdf = require('pdf-parse')
-const tabula = require('tabula-js')
+
 
 function createWindow () {
 // Create the browser window.
@@ -79,10 +79,9 @@ ipcMain.on('file-request', (event) => {
 
 		  //tabula-js to csv
 			const t = tabula(filepath)
-			console.log('CSV extrantion result: ***')
-			t.extractCsv((err , data) => console.log(data))
-
-
+			console.log('***')
+			//t.extractCsv((err , data) => console.log(data))
+			
 
 			// Using file system module to read the file
 			let dataBuffer = fs.readFileSync(filepath)

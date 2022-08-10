@@ -43,7 +43,9 @@ uploadFile.addEventListener('click', () => {
 	ipcRenderer.send('file-request');
   });
   
-  
+  ipcRenderer.on('html', (event, html) => {
+    textarea.innerHTML = html;
+  })
   //upon receiving a file, process accordingly
   ipcRenderer.on('text', (event, text) => {
     state.fileIsUploaded = true;
