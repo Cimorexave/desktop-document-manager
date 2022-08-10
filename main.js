@@ -2,6 +2,7 @@ const { app, BrowserWindow, dialog, ipcMain } = require('electron')
 const path = require('path');
 const fs = require('fs')
 const pdf = require('pdf-parse')
+const XLSX = require("xlsx");
 
 
 function createWindow () {
