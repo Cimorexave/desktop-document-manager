@@ -88,8 +88,8 @@ ipcMain.on('file-request', (event) => {
 			/* generate workbook */
 			const workbook = XLSX.utils.table_to_book(doc);
 			console.log(workbook)
-			fs.writeFileSync( workbook, "C:/Users/armit/OneDrive/Desktop/desktop-document-manager/" )
-
+			
+			XLSX.writeFileXLSX(workbook, "result.xlsx");
 			// Using file system module to read the file
 			let dataBuffer = fs.readFileSync(filepath)
 			//sending the read file to the renderer on dataBuffer channel
