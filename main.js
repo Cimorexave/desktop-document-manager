@@ -81,7 +81,7 @@ ipcMain.on('file-request', (event) => {
 
 			console.log('***')
 
-			/* obtain HTML string.  This example reads from test.html */
+			/* obtain HTML string.   */
 			const html_str = fs.readFileSync(filepath, "utf8");
 			/* get first TABLE element */
 			const doc = new JSDOM(html_str).window.document.querySelector("table");
