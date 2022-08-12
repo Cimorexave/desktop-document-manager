@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs')
 const pdf = require('pdf-parse')
 const XLSX = require("xlsx");
+const { JSDOM } = require("jsdom");
 
 
 function createWindow () {
@@ -78,12 +79,17 @@ ipcMain.on('file-request', (event) => {
 			//sending back the file path to the renderer on 'filepath' channel
 		  event.reply('filepath', filepath)
 
-		  //tabula-js to csv
-			const t = tabula(filepath)
 			console.log('***')
-			//t.extractCsv((err , data) => console.log(data))
-			
 
+			/* obtain HTML string.   */
+			const html_str = fs.readFileSync(filepath, "utf8");
+			/* get first TABLE element */
+			const doc = new JSDOM(html_str).window.document.querySelector("table");
+			/* generate workbook */
+			const workbook = XLSX.utils.table_to_book(doc);
+			console.log(workbook)
+			
+			XLSX.writeFileXLSX(workbook, "result.xlsx");
 			// Using file system module to read the file
 			let dataBuffer = fs.readFileSync(filepath)
 			//sending the read file to the renderer on dataBuffer channel

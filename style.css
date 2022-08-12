@@ -4,7 +4,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #073045;
+    background-color: grey;
     color: bisque;
 }
 h1 {
@@ -70,7 +70,10 @@ p {
 #save {
     display: none;
 }
-
+#preview  {
+    background-color: white;
+    border: 3px black solid;
+}
 @keyframes iconRotation {
     0 {} 
     100% {
