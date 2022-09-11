@@ -3,7 +3,7 @@
 This is a desktop application built by ElectronJS. As the name suggests, upload your pdf file and it will be converted into a text format. 
 There is also a preview of your uploaded file. Click the clear button to unload your file.
 
-Technologies and keywords in this project: `Electron` , `Inter Process Communication (ICP) ` , `node-modules` , `DOM manipulation` , `pdf-parse`.
+Technologies and keywords in this project: `Electron` , `Inter Process Communication (IPC) ` , `node-modules` , `DOM manipulation` , `pdf-parse`.
 
 ## Test
 
